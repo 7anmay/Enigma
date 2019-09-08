@@ -1,6 +1,6 @@
 final alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 final rotor = ["EKMFLGDQVZNTOWYHXUSPAIBRCJ","AJDKSIRUXBLHWTMCQGZNPYFVOE","BDFHJLCPRTXVZNYEIWGAKMUSQO","ESOVPZJAYQUIRHXLNFTGKDCMWB","VZBRGITYUPSDNHLXAWMJQOFECK"];
-final Notch = ["QEVJZ"];
+final Notch = "QEVJZ";
 final reflector = [{"A":"Y","Y":"A","B":"R","R":"B","C":"U","U":"C","D":"H","H":"D","E":"Q","Q":"E","F":"S","S":"F","G":"L","L":"G","I":"P","P":"I","J":"X","X":"J","K":"N","N":"K","M":"O","O":"M","T":"Z","Z":"T","V":"W","W":"V"}   , {"A":"F","F":"A","B":"V","V":"B","C":"P","P":"C","D":"J","J":"D","E":"I","I":"E","G":"O","O":"G","H":"Y","Y":"H","K":"R","R":"K","L":"Z","Z":"L","M":"X","X":"M","N":"W","W":"N","Q":"T","T":"Q","S":"U","U":"S"}];
 
 
@@ -18,33 +18,30 @@ int subs_no(String cod, String start, String ringg){
   return val;
   }
 
-String iterator(String Start, String rotor_config, String notch){
-  var strt = new List; 
-  var noch; 
+String iterator(String Start, String rotor_config){
   var config;
+  var strt = Start.runes.toList();
+  var noch = Notch.runes.toList();
   for(int i=0; i<3; i++){
-    strt[i] = Start.codeUnitAt(i);
-    noch[i] = Notch.codeUnitAt(i);
-    config[i] = int.parse(rotor_config[i]);
+  config[i] = int.parse(rotor_config[i]);
   }
   strt[0] = (strt[0]+1 > 90)? ((strt[0] + 1) % 90 + 65) : strt[0] + 1 ;  
-  if (strt[0] == noch[rotor_config[0]]){
+  if (strt[0] == noch[config[0]]){
     strt[1] = (strt[1]+1 > 90)? ((strt[1] + 1) % 90 + 65) : strt[1] + 1 ;
-      if(strt[1] == noch[rotor_config[1]]){
+      if(strt[1] == noch[config[1]]){
         strt[1] = (strt[2]+1 > 90)? ((strt[2] + 1) % 90 + 65) : strt[2] + 1 ;
       }
   }
-  for(int i=0; i<3; i++){
-    Start[i] = strt[i].toString();
-  } 
-  return Start;
-}
+ Start = new String.fromCharCodes(strt);
+ return Start;  
+} 
+  
 
 String enigma(String start_str, String ring_str, String rotor_config, var plugboard, String coded){
- var key = start_str;
- String encrypted;
-  for(int i=0; i<coded.length, i++){
-   start_str =  iterator(start_str, rotor_config, Notch);
+  var key = start_str;
+  String encrypted = "";
+  for(int i=0; i<coded.length; i++){
+   start_str =  iterator(start_str, rotor_config);
    
    //enter plug_swap
    
@@ -53,24 +50,25 @@ String enigma(String start_str, String ring_str, String rotor_config, var plugbo
    int val = subs_no(coded[i],start_str[2], ring_str[2]);
    var code = rotor[int.parse(rotor_config[2])-1][val];
    val = subs_no(code,start_str[1], ring_str[1]);  
-   code = rotor[int.parse(rotor_config[1]-1)][val];
-   val = suns_no(code,start_str[0], ring_str[0]);
-   code = rotor[int.parse(rotor_config[0]-1)][val];
+   code = rotor[int.parse(rotor_config[1])-1][val];
+   val = subs_no(code,start_str[0], ring_str[0]);
+   code = rotor[int.parse(rotor_config[0])-1][val];
    code = reflector[1][code];
    val = subs_no(code,start_str[0], ring_str[0]);
    code = rotor[int.parse(rotor_config[0])-1][val];
    val = subs_no(code,start_str[1], ring_str[1]);  
-   code = rotor[int.parse(rotor_config[1]-1)][val];
-   val = suns_no(code,start_str[2], ring_str[2]);
-   code = rotor[int.parse(rotor_config[2]-1)][val];
+   code = rotor[int.parse(rotor_config[1])-1][val];
+   val = subs_no(code,start_str[2], ring_str[2]);
+   code = rotor[int.parse(rotor_config[2])-1][val];
    
    //enter plug_swap
    
    //end plug_swap
     
    //encrypted letter recieved:
-   encrypted[i] = code;
+   encrypted = encrypted + code;
   }
+  
   return encrypted;
 }
 void main() {
