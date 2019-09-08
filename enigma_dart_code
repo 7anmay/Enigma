@@ -3,6 +3,19 @@ final rotor = ["EKMFLGDQVZNTOWYHXUSPAIBRCJ","AJDKSIRUXBLHWTMCQGZNPYFVOE","BDFHJL
 final Notch = "QEVJZ";
 final reflector = [{"A":"Y","Y":"A","B":"R","R":"B","C":"U","U":"C","D":"H","H":"D","E":"Q","Q":"E","F":"S","S":"F","G":"L","L":"G","I":"P","P":"I","J":"X","X":"J","K":"N","N":"K","M":"O","O":"M","T":"Z","Z":"T","V":"W","W":"V"}   , {"A":"F","F":"A","B":"V","V":"B","C":"P","P":"C","D":"J","J":"D","E":"I","I":"E","G":"O","O":"G","H":"Y","Y":"H","K":"R","R":"K","L":"Z","Z":"L","M":"X","X":"M","N":"W","W":"N","Q":"T","T":"Q","S":"U","U":"S"}];
 
+///// The inputs to be taken /////
+// KEY SETTING: ZIN
+// RING SETTING: EWZ
+// ROTORS: 314
+// PLUGBOARD: AT BS DE FM IR KN LZ OW PV HQ
+
+String start_str = "ZIN";
+String ring_str = "EWZ";
+String rotor_config = "314";
+final plugboard = ["A":"T", "B":"S", "D":"E", "F":"M", "I":"R", "K":"N", "L":"Z", "O":"W", "P":"V", "H":"Q","T":"A", "S":"B", "E":"D", "M":"F", "R":"I", "N":"K", "Z":"L", "W":"O", "V":"P", "Q":"H"]
+
+
+
 
 int subs_no(String cod, String start, String ringg){
   var strt = start.codeUnitAt(0);
