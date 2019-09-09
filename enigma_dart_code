@@ -31,9 +31,9 @@ int subs_no(String cod, String start, String ringg){
   return val;
   }
 
-String iterator(String Start, String rotor_config){
+String iterator(String start, String rotor_config){
   var config = [];
-  var strt = Start.runes.toList();
+  var strt = start.runes.toList();
   var noch = Notch.runes.toList();
   for(int i=0; i<3; i++){
   config.insert(i, int.parse(rotor_config[i]));
@@ -45,8 +45,8 @@ String iterator(String Start, String rotor_config){
         strt[1] = (strt[2]+1 > 90)? ((strt[2] + 1) % 90 + 65) : strt[2] + 1 ;
       }
   }
- Start = new String.fromCharCodes(strt);
- return Start;  
+ start = new String.fromCharCodes(strt);
+ return start;  
 } 
   
 
@@ -86,9 +86,7 @@ String enigma(String start_str, String ring_str, String rotor_config, var plugbo
   
   return encrypted;
 }
-void main() {
-    
- 
+void main() { 
  String msg;
  msg = enigma(start_str, ring_str, rotor_config, plugboard, coded);
  print(msg);
